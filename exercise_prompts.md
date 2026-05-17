@@ -382,3 +382,126 @@ You are a Senior QA Automation Engineer working on a Playwright + TypeScript
 - Output every changed or new file with a // path: `<relative-path>` header.
 - Do NOT output files you did not change.
 - No new utility files, no new component file
+
+## Exersize 3
+
+You are a Senior QA Automation Engineer working on a Playwright + TypeScript
+  test suite using the Page Object Model pattern.
+
+---
+
+## Project context
+
+  Framework: Playwright (@playwright/test), TypeScript.
+  Base URL: https://www.saucedemo.com
+  Tests run under the "authenticated" Playwright project (session stored in .auth/).
+
+  Existing files you MUST reuse — do NOT recreate them:
+
+- src/pages/BasePage.ts           — abstract base; navigate(), this.page, this.logger
+- src/pages/InventoryPage.ts      — open(), selectSortOption(value), getTitle(),
+  getProductCards(), getItem(index), getItems()
+- src/components/InventoryItem.ts — getName(): Locator, getPrice(): Locator,
+  getPriceValue(): Promise`<number>`
+- src/data/inventory.ts           — SortOptions: { nameAZ, nameZA, priceLowHigh,
+  priceHighLow }, InventoryPageData
+- src/fixtures/index.ts           — re-exports test and expect; always import from here
+- src/fixtures/BaseTest.ts        — registers inventoryPage, logger
+
+---
+
+## DOM context (real saucedemo.com — data-test attributes only)
+
+  Sort dropdown on /inventory.html:
+    `<select data-test="product-sort-container">`
+      `<option value="az">`Name (A to Z)`</option>`
+      `<option value="za">`Name (Z to A)`</option>`
+      `<option value="lohi">`Price (low to high)`</option>`
+      `<option value="hilo">`Price (high to low)`</option>`
+    `</select>`
+
+  Each product card:
+    `<div class="inventory_item">`
+      `<div class="inventory_item_name">`Sauce Labs Backpack`</div>`
+      `<div class="inventory_item_price">`$29.99`</div>`
+    `</div>`
+
+---
+
+## Task 1 — Extend src/pages/InventoryPage.ts
+
+  Add the following two collection helpers — do NOT change anything already there.
+  Both must use the existing getItems() method internally.
+
+    async getAllPrices(): Promise<number[]>
+      → resolve all InventoryItem instances from getItems(),
+        then map each item to item.getPriceValue(),
+        return Promise.all of that mapped array.
+
+    async getAllNames(): Promise<string[]>
+      → resolve all InventoryItem instances from getItems(),
+        then map each to (await item.getName().textContent()) ?? '',
+        return Promise.all of that mapped array.
+
+---
+
+## Task 2 — Update tests/e2e/inventory.spec.ts
+
+  Rules for this task:
+
+- Do NOT touch TC-INV-01, TC-INV-03, TC-INV-05.
+- Replace the body of TC-INV-02 with an improved assertion (see below).
+- Add TC-INV-04, TC-INV-06, TC-INV-07 inside the existing describe block,
+  after TC-INV-05.
+- Each test must have // Initialization, // User actions, // Verification sections.
+- No raw selectors in the spec.
+- All four sort tests must assert every consecutive pair in the collection,
+  not just first vs last.
+
+  Consecutive-pair assertion pattern to use in all sort tests:
+    for (let i = 0; i < collection.length - 1; i++) {
+      expect(collection[i]).`<matcher>`(collection[i + 1]);
+    }
+
+    TC-INV-02  @regression  — REPLACE BODY (keep test name and tag)
+    "sorting by Price low to high orders products by ascending price"
+    Initialization: —
+    User actions:   selectSortOption(SortOptions.priceLowHigh)
+    Verification:   const prices = await inventoryPage.getAllPrices()
+                    for every consecutive pair: prices[i] <= prices[i+1]
+                      (toBeLessThanOrEqual)
+
+    TC-INV-04  @regression  — ADD (this ID was previously used and removed)
+    "sorting by Name Z to A orders all products in descending alphabetical order"
+    Initialization: —
+    User actions:   selectSortOption(SortOptions.nameZA)
+    Verification:   const names = await inventoryPage.getAllNames()
+                    for every consecutive pair: names[i].localeCompare(names[i+1]) > 0
+                      (toBeGreaterThan(0))
+
+    TC-INV-06  @regression  — ADD
+    "sorting by Name A to Z orders all products in ascending alphabetical order"
+    Initialization: —
+    User actions:   selectSortOption(SortOptions.nameAZ)
+    Verification:   const names = await inventoryPage.getAllNames()
+                    for every consecutive pair: names[i].localeCompare(names[i+1]) < 0
+                      (toBeLessThan(0))
+
+    TC-INV-07  @regression  — ADD
+    "sorting by Price high to low orders all products in descending price order"
+    Initialization: —
+    User actions:   selectSortOption(SortOptions.priceHighLow)
+    Verification:   const prices = await inventoryPage.getAllPrices()
+                    for every consecutive pair: prices[i] >= prices[i+1]
+                      (toBeGreaterThanOrEqual)
+
+---
+
+## Rules
+
+- Import test/expect from src/fixtures only.
+- No raw selectors in the spec — all data access through InventoryPage methods.
+- Collection assertions must cover ALL consecutive pairs, not just index 0 vs last.
+- Output every changed file with a // path: `<relative-path>` header.
+- Do NOT output files you did not change.
+- No new files, no new page objects, no new data files.

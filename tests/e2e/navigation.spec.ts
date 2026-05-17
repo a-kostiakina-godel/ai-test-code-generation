@@ -9,8 +9,11 @@ test.describe('Navigation', () => {
   test(
     'TC-NAV-01: hamburger menu logout navigates to login page @smoke',
     async ({ siteHeader, authPage, page }) => {
+      // User actions
       await siteHeader.openHamburgerMenu();
       await siteHeader.clickLogout();
+
+      // Verification
       await expect(page).toHaveURL(LOGIN_URL);
       await expect(authPage.getSubmitButton()).toBeVisible();
     },
@@ -19,7 +22,10 @@ test.describe('Navigation', () => {
   test(
     'TC-NAV-02: cart link navigates to cart page @smoke',
     async ({ siteHeader, page }) => {
+      // User actions
       await siteHeader.clickCartLink();
+
+      // Verification
       await expect(page).toHaveURL(CART_URL);
     },
   );

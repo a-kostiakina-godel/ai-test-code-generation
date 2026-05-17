@@ -41,4 +41,14 @@ export class InventoryPage extends BasePage {
     const count = await this.productCards.count();
     return Array.from({ length: count }, (_, i) => new InventoryItem(this.productCards.nth(i)));
   }
+
+  async getAllPrices(): Promise<number[]> {
+    const items = await this.getItems();
+    return Promise.all(items.map(item => item.getPriceValue()));
+  }
+
+  async getAllNames(): Promise<string[]> {
+    const items = await this.getItems();
+    return Promise.all(items.map(async item => (await item.getName().textContent()) ?? ''));
+  }
 }

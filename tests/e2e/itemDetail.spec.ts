@@ -6,7 +6,10 @@ test.describe('Item Detail', () => {
   test(
     'TC-ITEM-01: product detail page loads with all elements visible @smoke',
     async ({ itemPage, page }) => {
+      // User actions
       await itemPage.openFirstItemFromInventory();
+
+      // Verification
       await expect(page).toHaveURL(/inventory-item\.html/);
       await expect(itemPage.getProductName()).toBeVisible();
       await expect(itemPage.getProductDesc()).toBeVisible();
@@ -26,7 +29,10 @@ test.describe('Item Detail', () => {
     test(
       'TC-ITEM-02: Add to Cart updates cart badge and changes button to Remove @regression',
       async ({ itemPage, siteHeader }) => {
+        // User actions
         await itemPage.clickAddToCart();
+
+        // Verification
         await expect(siteHeader.getCartBadge()).toHaveText(CartExpectations.badgeAfterAdd);
         await expect(itemPage.getRemoveButton()).toHaveText(CartExpectations.removeButtonText);
       },
@@ -35,7 +41,10 @@ test.describe('Item Detail', () => {
     test(
       'TC-ITEM-03: Back to Products navigates to inventory page @regression',
       async ({ itemPage, page }) => {
+        // User actions
         await itemPage.clickBackToProducts();
+
+        // Verification
         await expect(page).toHaveURL(INVENTORY_URL);
       },
     );
