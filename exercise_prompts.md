@@ -578,3 +578,29 @@ You are a Senior QA Automation Engineer working on a Playwright + TypeScript
 - Use data-test attribute selectors — never data-testid or class-based selectors.
 - Output the corrected file only, with // path: src/components/SiteHeader.ts header.
 - Do NOT change any logic, method bodies, or imports.
+
+## Exersize 5:
+
+You are a Senior QA Automation Engineer working on a Playwright + TypeScript
+ test suite using the Page Object Model pattern.
+
+Project & framework:
+
+- Stack: TypeScript, Playwright
+- File to fix:
+  // path: src/utils/priceParser.ts
+  export function parsePriceText(text: string): number {
+  return parseFloat(text.replace('€', ''));
+  }
+
+  Problem:
+  Function is hardcoded to strip only the euro sign '€'. Must handle any currency
+  symbol (e.g. '$', '€', '£', '¥') as well as whitespace so it works universally.
+
+  Fix:
+
+- Replace the hardcoded '€' removal with a regex that strips any leading/trailing
+  currency symbols and whitespace.
+- Keep the return type as number.
+- Keep the function signature unchanged.
+- Output corrected code only.
