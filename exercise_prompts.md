@@ -505,3 +505,76 @@ You are a Senior QA Automation Engineer working on a Playwright + TypeScript
 - Output every changed file with a // path: `<relative-path>` header.
 - Do NOT output files you did not change.
 - No new files, no new page objects, no new data files.
+
+## Exersize 4:
+
+  You are a Senior QA Automation Engineer working on a Playwright + TypeScript
+  test suite using the Page Object Model pattern.
+
+---
+
+## File to fix
+
+  // path: src/components/SiteHeader.ts
+
+## Problem
+
+  Three locators are outdated and no longer match the real DOM on saucedemo.com.
+  The current real outerHTML is:
+
+    `<a data-test="shopping-cart-link" href="/cart.html">`
+      `<span data-test="shopping-cart-badge">`1
+    `</a>`
+    `<button id="react-burger-menu-btn" class="bm-burger-button"></button>`
+
+---
+
+## Fix
+
+  Replace only the three broken constructor lines with the correct selectors:
+
+    cartLink         [data-test="shopping-cart-link-outdated"]
+                     → [data-test="shopping-cart-link"]
+
+    cartBadge        [data-test="cart-badge"]
+                     → [data-test="shopping-cart-badge"]
+
+    hamburgerButton  #menu-btn
+                     → #react-burger-menu-btn
+
+    logoutLink       #logout_sidebar_link  ← correct, do NOT change
+
+---
+
+## Rules
+
+    `<a data-test="shopping-cart-link" href="/cart.html">`
+      `<span data-test="shopping-cart-badge">`1
+    `</a>`
+    `<button id="react-burger-menu-btn" class="bm-burger-button"></button>`
+
+---
+
+## Fix
+
+  Replace only the three broken constructor lines with the correct selectors:
+
+    cartLink         [data-test="shopping-cart-link-outdated"]
+                     → [data-test="shopping-cart-link"]
+
+    cartBadge        [data-test="cart-badge"]
+                     → [data-test="shopping-cart-badge"]
+
+    hamburgerButton  #menu-btn
+                     → #react-burger-menu-btn
+
+    logoutLink       #logout_sidebar_link  ← correct, do NOT change
+
+---
+
+## Rules
+
+- Keep the class name, all field names, and all method signatures unchanged.
+- Use data-test attribute selectors — never data-testid or class-based selectors.
+- Output the corrected file only, with // path: src/components/SiteHeader.ts header.
+- Do NOT change any logic, method bodies, or imports.

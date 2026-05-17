@@ -8,9 +8,9 @@ export class SiteHeader {
   private readonly logoutLink: Locator;
 
   constructor(private readonly page: Page) {
-    this.cartLink = page.locator('[data-test="shopping-cart-link-outdated"]');
-    this.cartBadge = page.locator('[data-test="cart-badge"]');
-    this.hamburgerButton = page.locator('#menu-btn');
+    this.cartLink = page.locator('[data-test="shopping-cart-link"]');
+    this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
+    this.hamburgerButton = page.locator('#react-burger-menu-btn');
     this.logoutLink = page.locator('#logout_sidebar_link');
   }
 
