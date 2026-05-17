@@ -1,5 +1,5 @@
 import { test, expect } from '../../src/fixtures';
-import { LOGIN_URL, INVENTORY_URL, CART_URL } from '../../src/utils/urlBuilder';
+import { LOGIN_URL, INVENTORY_URL, CART_URL } from '../../src/utils/urls';
 
 test.describe('Navigation', () => {
   test.beforeEach(async ({ page }) => {

@@ -2,7 +2,7 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { InventoryItem } from '../components/InventoryItem';
 import type { Logger } from '../utils/Logger';
-import { INVENTORY_URL } from '../utils/urlBuilder';
+import { INVENTORY_URL } from '../utils/urls';
 
 export class InventoryPage extends BasePage {
   private readonly titleLocator: Locator;

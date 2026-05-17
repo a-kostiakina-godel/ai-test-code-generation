@@ -3,6 +3,8 @@ import { AuthPage } from '../pages/AuthPage';
 import { SiteHeader } from '../components/SiteHeader';
 import { ItemDetailPage } from '../pages/ItemDetailPage';
 import { InventoryPage } from '../pages/InventoryPage';
+import { CartPage } from '../pages/CartPage';
+import { CheckoutPage } from '../pages/CheckoutPage';
 import { Logger } from '../utils/Logger';
 
 type PageFixtures = {
@@ -10,6 +12,8 @@ type PageFixtures = {
   siteHeader: SiteHeader;
   itemPage: ItemDetailPage;
   inventoryPage: InventoryPage;
+  cartPage: CartPage;
+  checkoutPage: CheckoutPage;
   logger: Logger;
 };
 
@@ -18,6 +22,8 @@ export const test = base.extend<PageFixtures>({
   siteHeader: async ({ page }, use) => use(new SiteHeader(page)),
   itemPage: async ({ page, logger }, use) => use(new ItemDetailPage(page, logger)),
   inventoryPage: async ({ page, logger }, use) => use(new InventoryPage(page, logger)),
+  cartPage: async ({ page, logger }, use) => use(new CartPage(page, logger)),
+  checkoutPage: async ({ page, logger }, use) => use(new CheckoutPage(page, logger)),
   logger: [async ({ page }, use, testInfo): Promise<void> => {
     const logger = new Logger(page, testInfo);
     await logger.setup();

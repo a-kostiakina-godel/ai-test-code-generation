@@ -2,7 +2,7 @@ import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { UserCredentials } from '../data/users';
 import type { Logger } from '../utils/Logger';
-import { LOGIN_URL } from '../utils/urlBuilder';
+import { LOGIN_URL } from '../utils/urls';
 import { waitForPageLoad } from '../utils/waitHelpers';
 
 export class AuthPage extends BasePage {

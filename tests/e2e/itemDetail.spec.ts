@@ -1,6 +1,6 @@
 import { test, expect } from '../../src/fixtures';
 import { ITEM_DETAIL_ID, CartExpectations } from '../../src/data/inventory';
-import { INVENTORY_URL } from '../../src/utils/urlBuilder';
+import { INVENTORY_URL } from '../../src/utils/urls';
 
 test.describe('Item Detail', () => {
   test(

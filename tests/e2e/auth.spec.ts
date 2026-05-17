@@ -1,6 +1,6 @@
 import { test, expect } from '../../src/fixtures';
 import { validUser, problemUser, lockedUser, invalidUser, LoginErrors } from '../../src/data/users';
-import { INVENTORY_URL } from '../../src/utils/urlBuilder';
+import { INVENTORY_URL } from '../../src/utils/urls';
 
 test.describe('Auth', () => {
   test.beforeEach(async ({ authPage }) => {

@@ -1,7 +1,7 @@
 import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import type { Logger } from '../utils/Logger';
-import { INVENTORY_URL, ITEM_DETAIL_URL } from '../utils/urlBuilder';
+import { INVENTORY_URL, ITEM_DETAIL_URL } from '../utils/urls';
 import { waitForPageLoad } from '../utils/waitHelpers';
 
 export class ItemDetailPage extends BasePage {

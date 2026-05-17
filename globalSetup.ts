@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { validUser } from './src/data/users';
 import { AuthPage } from './src/pages/AuthPage';
-import { INVENTORY_URL } from './src/utils/urlBuilder';
+import { INVENTORY_URL } from './src/utils/urls';
 
 async function globalSetup(config: FullConfig): Promise<void> {
   const baseURL = config.projects[0].use.baseURL;
