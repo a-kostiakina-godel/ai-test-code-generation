@@ -6,7 +6,6 @@ export class SiteHeader {
   private readonly cartBadge: Locator;
   private readonly hamburgerButton: Locator;
   private readonly logoutLink: Locator;
-
   constructor(private readonly page: Page) {
     this.cartLink = page.locator('[data-test="shopping-cart-link"]');
     this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
@@ -36,4 +35,5 @@ export class SiteHeader {
     await this.logoutLink.click();
     await waitForPageLoad(this.page);
   }
+
 }

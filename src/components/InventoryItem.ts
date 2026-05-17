@@ -1,4 +1,5 @@
 import { Locator } from '@playwright/test';
+import { parsePriceText } from '../utils/priceParser';
 
 export class InventoryItem {
   private readonly nameLocator: Locator;
@@ -37,7 +38,7 @@ export class InventoryItem {
 
   async getPriceValue(): Promise<number> {
     const text = (await this.priceLocator.textContent()) ?? '';
-    return parseFloat(text.replace('$', ''));
+    return parsePriceText(text);
   }
 
   async clickAddToCart(): Promise<void> {

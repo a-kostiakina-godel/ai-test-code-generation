@@ -23,12 +23,12 @@ export default defineConfig({
   projects: [
     {
       name: 'unauthenticated',
-      testMatch: '**/login.spec.ts',
+      testMatch: ['**/auth.spec.ts'],
       use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'authenticated',
-      testIgnore: '**/login.spec.ts',
+      testIgnore: '**/auth.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
         storageState: '.auth/session.json',
