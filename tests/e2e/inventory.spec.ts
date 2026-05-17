@@ -40,4 +40,17 @@ test.describe('Inventory', () => {
       await expect(siteHeader.getCartBadge()).toHaveText(CartExpectations.badgeAfterAdd);
     },
   );
+
+  test(
+    'TC-INV-05: clicking Remove on a product card after adding it hides the cart badge @regression',
+    async ({ inventoryPage, siteHeader }) => {
+      const item = inventoryPage.getItem(0);
+
+      await item.clickAddToCart();
+      await expect(siteHeader.getCartBadge()).toHaveText(CartExpectations.badgeAfterAdd);
+      await item.clickRemove();
+
+      await expect(siteHeader.getCartBadge()).toBeHidden();
+    },
+  );
 });
