@@ -8,11 +8,11 @@ test.describe('Navigation', () => {
 
   test(
     'TC-NAV-01: hamburger menu logout navigates to login page @smoke',
-    async ({ siteHeader, loginPage, page }) => {
+    async ({ siteHeader, authPage, page }) => {
       await siteHeader.openHamburgerMenu();
       await siteHeader.clickLogout();
       await expect(page).toHaveURL(LOGIN_URL);
-      await expect(loginPage.getLoginButton()).toBeVisible();
+      await expect(authPage.getSubmitButton()).toBeVisible();
     },
   );
 

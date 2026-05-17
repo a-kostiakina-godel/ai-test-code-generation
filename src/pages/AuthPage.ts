@@ -5,11 +5,12 @@ import type { Logger } from '../utils/Logger';
 import { LOGIN_URL } from '../utils/urlBuilder';
 import { waitForPageLoad } from '../utils/waitHelpers';
 
-export class LoginPage extends BasePage {
+export class AuthPage extends BasePage {
   private readonly usernameField: Locator;
   private readonly passwordField: Locator;
   private readonly loginButton: Locator;
   private readonly errorBanner: Locator;
+  private readonly errorDismissButton: Locator;
 
   constructor(page: Page, logger?: Logger) {
     super(page, logger);
@@ -17,6 +18,7 @@ export class LoginPage extends BasePage {
     this.passwordField = page.locator('[data-test="password"]');
     this.loginButton = page.locator('[data-test="login-button"]');
     this.errorBanner = page.locator('[data-test="error"]');
+    this.errorDismissButton = page.locator('[data-test="error-button"]');
   }
 
   async open(): Promise<void> {
@@ -34,6 +36,42 @@ export class LoginPage extends BasePage {
   async submitEmptyForm(): Promise<void> {
     this.logger?.info('Submitting login form with empty fields');
     await this.loginButton.click();
+  }
+
+  async fillUsername(value: string): Promise<void> {
+    this.logger?.info(`Filling username: ${value}`);
+    await this.usernameField.fill(value);
+  }
+
+  async fillPassword(value: string): Promise<void> {
+    this.logger?.info('Filling password');
+    await this.passwordField.fill(value);
+  }
+
+  async submit(): Promise<void> {
+    this.logger?.info('Clicking submit button');
+    await this.loginButton.click();
+  }
+
+  async dismissError(): Promise<void> {
+    this.logger?.info('Dismissing error banner');
+    await this.errorDismissButton.click();
+  }
+
+  getUsername(): Locator {
+    return this.usernameField;
+  }
+
+  getPassword(): Locator {
+    return this.passwordField;
+  }
+
+  getSubmitButton(): Locator {
+    return this.loginButton;
+  }
+
+  getErrorMessage(): Locator {
+    return this.errorBanner;
   }
 
   getLoginButton(): Locator {

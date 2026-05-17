@@ -2,7 +2,7 @@ import { chromium, FullConfig } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
 import { validUser } from './src/data/users';
-import { LoginPage } from './src/pages/LoginPage';
+import { AuthPage } from './src/pages/AuthPage';
 import { INVENTORY_URL } from './src/utils/urlBuilder';
 
 async function globalSetup(config: FullConfig): Promise<void> {
@@ -15,9 +15,9 @@ async function globalSetup(config: FullConfig): Promise<void> {
   const page = await context.newPage();
   const user = validUser();
 
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  await loginPage.login(user);
+  const authPage = new AuthPage(page);
+  await authPage.open();
+  await authPage.login(user);
   await page.waitForURL(`**${INVENTORY_URL}`);
 
   fs.mkdirSync(path.join(process.cwd(), '.auth'), { recursive: true });

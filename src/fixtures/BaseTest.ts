@@ -1,12 +1,12 @@
 import { test as base } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
+import { AuthPage } from '../pages/AuthPage';
 import { SiteHeader } from '../components/SiteHeader';
 import { ItemDetailPage } from '../pages/ItemDetailPage';
 import { InventoryPage } from '../pages/InventoryPage';
 import { Logger } from '../utils/Logger';
 
 type PageFixtures = {
-  loginPage: LoginPage;
+  authPage: AuthPage;
   siteHeader: SiteHeader;
   itemPage: ItemDetailPage;
   inventoryPage: InventoryPage;
@@ -14,7 +14,7 @@ type PageFixtures = {
 };
 
 export const test = base.extend<PageFixtures>({
-  loginPage: async ({ page, logger }, use) => use(new LoginPage(page, logger)),
+  authPage: async ({ page, logger }, use) => use(new AuthPage(page, logger)),
   siteHeader: async ({ page }, use) => use(new SiteHeader(page)),
   itemPage: async ({ page, logger }, use) => use(new ItemDetailPage(page, logger)),
   inventoryPage: async ({ page, logger }, use) => use(new InventoryPage(page, logger)),
